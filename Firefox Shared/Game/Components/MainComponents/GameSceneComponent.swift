@@ -10,12 +10,16 @@ import GameplayKit
 
 class GameSceneComponent: GKComponent, GKAgentDelegate {
     
+    var gameEntity: GameEntity? {
+        return self.entity as? GameEntity
+    }
+    
     var modelComponent: GameModelComponent? {
-        return self.entity?.component(ofType: GameModelComponent.self)
+        return self.gameEntity?.modelComponent
     }
     
     var agentComponent: GKAgent2D? {
-        return self.entity?.component(ofType: GKAgent2D.self)
+        return self.gameEntity?.agentComponent
     }
     
     var positionNode: SCNNode = SCNNode()
@@ -44,7 +48,8 @@ class GameSceneComponent: GKComponent, GKAgentDelegate {
     }
     
     func agentDidUpdate(_ agent: GKAgent) {
-        if let agent2D = agent as? GKAgent2D {
+        if let agent2D = agent as? GKAgent2D,
+            self.gameEntity?.unitComponent?.state.currentState is GameNormalState {
             self.positionNode.position.x = SCNFloat(agent2D.position.x)
             self.positionNode.position.z = SCNFloat(agent2D.position.y)
             self.positionNode.eulerAngles.y = SCNFloat(-agent2D.rotation) + .pi / 2

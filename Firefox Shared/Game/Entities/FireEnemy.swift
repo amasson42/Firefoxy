@@ -11,35 +11,34 @@ import SceneKit
 
 class FireEnemy: GameEntity {
     
-    var modelComponent: GameModelComponent!
-    var sceneComponent: GameSceneComponent!
-    var agentComponent: GKAgent2D!
-    
-    override init() {
-        super.init()
-        if let model = GameModelComponent(withName: "fireEnemy") {
-            self.modelComponent = model
-            self.addComponent(self.modelComponent)
-        }
-        self.agentComponent = GKAgent2D()
-        self.addComponent(self.agentComponent)
-        
-        self.sceneComponent = GameSceneComponent()
-        self.addComponent(self.sceneComponent)
+    init() {
+        super.init(modelName: "fireEnemy")!
         self.sceneComponent.addPhysicalBody(radius: 0.3, category: GameCollisionCategory.unit, collision: GameCollisionCategory.spell, contactTest: GameCollisionCategory.spell)
-    }
-    
-    override func contactWith(entity: GameEntity) {
         
+        self.unitComponent = GameUnitCoreComponent()
+        self.addComponent(self.unitComponent!)
     }
     
     override func getBumpedFrom(entity: GameEntity) {
-        print("get bumped")
         if let agentComponent = entity.component(ofType: GKAgent2D.self) {
             let sp = self.agentComponent.position
             let ep = agentComponent.position
-            self.agentComponent.rotation = atan2(sp.y - ep.y, sp.x - ep.x)
-            self.agentComponent.update(deltaTime: 1.0)
+            let direction = vector_float2(sp.x - ep.x, sp.y - ep.y)
+            let norme = sqrt(direction.x * direction.x + direction.y * direction.y)
+            let normed = vector_float2(direction.x / norme, direction.y / norme)
+            
+            let moveAction = SCNAction.move(by: SCNVector3(normed.x, 0.0, normed.y), duration: 1.0)
+            let jumpUpAction = SCNAction.move(by: SCNVector3(x: 0, y: 1.0, z: 0), duration: 0.5)
+            jumpUpAction.timingMode = .easeOut
+            let jumpDownAction = SCNAction.move(by: SCNVector3(x: 0, y: -1.0, z: 0), duration: 0.5)
+            jumpDownAction.timingMode = .easeIn
+            
+            let bumpAction = SCNAction.group([moveAction, .sequence([jumpUpAction, jumpDownAction])])
+            
+            self.unitComponent?.state.enter(GameStunnedState.self)
+            self.sceneComponent.positionNode.runAction(bumpAction, forKey: "bumped") {
+                self.unitComponent?.state.enter(GameNormalState.self)
+            }
         }
     }
     

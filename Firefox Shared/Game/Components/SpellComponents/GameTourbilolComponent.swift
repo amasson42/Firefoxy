@@ -30,7 +30,7 @@ class GameTourbilolComponent: GKComponent {
             
             if let positionNode = self.positionNode {
                 let duration = spiner?.animation.duration ?? 1.0
-                let tourbilolArea = TourbilolArea(castedBy: self.entity, forDuration: duration)
+                let tourbilolArea = TourbilolArea(castedBy: self.entity as? GameEntity, forDuration: duration)
                 (self.entity as? GameEntity)?.game?.add(entity: tourbilolArea)
                 
                 positionNode.addChildNode(tourbilolArea.sceneComponent.positionNode)

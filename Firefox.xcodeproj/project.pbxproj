@@ -38,6 +38,10 @@
 		8E918C642038F9CD003C1666 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E918C622038F9CD003C1666 /* Spell.swift */; };
 		8EDB083E203A355200E56F6C /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB083D203A355200E56F6C /* GameEntity.swift */; };
 		8EDB083F203A355200E56F6C /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB083D203A355200E56F6C /* GameEntity.swift */; };
+		8EF7C5BB204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */; };
+		8EF7C5BC204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */; };
+		8EF7C5BE2041630D005EA1C8 /* UnitStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */; };
+		8EF7C5BF2041630D005EA1C8 /* UnitStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,8 @@
 		8E918C5F2038F43D003C1666 /* FireEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireEnemy.swift; sourceTree = "<group>"; };
 		8E918C622038F9CD003C1666 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
 		8EDB083D203A355200E56F6C /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
+		8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnitCoreComponent.swift; sourceTree = "<group>"; };
+		8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitStates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,10 +156,9 @@
 		8E918C4720386A6B003C1666 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				8E918C4E20386ABF003C1666 /* GameModelComponent.swift */,
-				8E918C52203871BE003C1666 /* GameSceneComponent.swift */,
-				8E918C55203871F4003C1666 /* GameWalkerComponent.swift */,
-				8E918C582038CD9C003C1666 /* GameTourbilolComponent.swift */,
+				8EF7C5B7204149C2005EA1C8 /* MainComponents */,
+				8EF7C5B9204149DA005EA1C8 /* UnitComponents */,
+				8EF7C5B6204149AD005EA1C8 /* SpellComponents */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -175,6 +180,33 @@
 				8E918C622038F9CD003C1666 /* Spell.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		8EF7C5B6204149AD005EA1C8 /* SpellComponents */ = {
+			isa = PBXGroup;
+			children = (
+				8E918C582038CD9C003C1666 /* GameTourbilolComponent.swift */,
+			);
+			path = SpellComponents;
+			sourceTree = "<group>";
+		};
+		8EF7C5B7204149C2005EA1C8 /* MainComponents */ = {
+			isa = PBXGroup;
+			children = (
+				8E918C4E20386ABF003C1666 /* GameModelComponent.swift */,
+				8E918C52203871BE003C1666 /* GameSceneComponent.swift */,
+			);
+			path = MainComponents;
+			sourceTree = "<group>";
+		};
+		8EF7C5B9204149DA005EA1C8 /* UnitComponents */ = {
+			isa = PBXGroup;
+			children = (
+				8E918C55203871F4003C1666 /* GameWalkerComponent.swift */,
+				8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */,
+				8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */,
+			);
+			path = UnitComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,7 +317,9 @@
 				8E918C4D20386A9F003C1666 /* SCNVector.swift in Sources */,
 				8E918C53203871BE003C1666 /* GameSceneComponent.swift in Sources */,
 				8E918C592038CD9C003C1666 /* GameTourbilolComponent.swift in Sources */,
+				8EF7C5BE2041630D005EA1C8 /* UnitStates.swift in Sources */,
 				8E43F6021F811AD000A498B8 /* GameViewController.swift in Sources */,
+				8EF7C5BB204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */,
 				8E918C632038F9CD003C1666 /* Spell.swift in Sources */,
 				8E918C4F20386ABF003C1666 /* GameModelComponent.swift in Sources */,
 				8E43F6181F811AD000A498B8 /* GameController.swift in Sources */,
@@ -304,7 +338,9 @@
 				8E43F6131F811AD000A498B8 /* GameViewController.swift in Sources */,
 				8E918C54203871BE003C1666 /* GameSceneComponent.swift in Sources */,
 				8E918C5A2038CD9C003C1666 /* GameTourbilolComponent.swift in Sources */,
+				8EF7C5BF2041630D005EA1C8 /* UnitStates.swift in Sources */,
 				8E43F6191F811AD000A498B8 /* GameController.swift in Sources */,
+				8EF7C5BC204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */,
 				8E918C642038F9CD003C1666 /* Spell.swift in Sources */,
 				8E918C51203871A0003C1666 /* SCNVector.swift in Sources */,
 				8E918C502038719E003C1666 /* GameModelComponent.swift in Sources */,
