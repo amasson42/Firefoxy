@@ -60,4 +60,18 @@ class GameWalkerComponent: GKComponent {
             positionNode.runAction(moveAction, forKey: "walk")
         }
     }
+    
+    func interruptWalk() {
+        self.positionNode?.removeAction(forKey: "walk")
+        guard let model = self.model else {
+            return
+        }
+        if let walker = model.animationPlayer(forKey: "walk") {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.2
+            walker.blendFactor = 0.0
+            model.animationPlayer(forKey: "idle")?.blendFactor = 1.0
+            SCNTransaction.commit()
+        }
+    }
 }

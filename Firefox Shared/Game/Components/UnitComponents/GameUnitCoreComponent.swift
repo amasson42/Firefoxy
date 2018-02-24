@@ -10,7 +10,10 @@ import GameplayKit
 
 class GameUnitCoreComponent: GKComponent {
     
-    var state: GKStateMachine!
+    var stateMachine: GKStateMachine!
+    var state: GameState {
+        return self.stateMachine.currentGameState!
+    }
     
     override init() {
         super.init()
@@ -24,10 +27,10 @@ class GameUnitCoreComponent: GKComponent {
         guard let entity = self.entity as? GameEntity else {
             return
         }
-        self.state = GKStateMachine(gameEntity: entity)
+        self.stateMachine = GKStateMachine(gameEntity: entity)
     }
     
     override func willRemoveFromEntity() {
-        self.state = nil
+        self.stateMachine = nil
     }
 }

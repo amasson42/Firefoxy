@@ -11,6 +11,10 @@ import GameplayKit
 
 extension GKStateMachine {
     
+    var currentGameState: GameState? {
+        return self.currentState as? GameState
+    }
+    
     convenience init(gameEntity: GameEntity) {
         self.init(states: [GameNormalState(entity: gameEntity), GameStunnedState(entity: gameEntity)])
         self.enter(GameNormalState.self)
@@ -18,22 +22,42 @@ extension GKStateMachine {
     
 }
 
-class GameNormalState: GKState {
+class GameState: GKState {
     
     var entity: GameEntity
     
     init(entity: GameEntity) {
         self.entity = entity
+    }
+    
+    var canWalk: Bool {
+        return true
+    }
+    
+    var canAttack: Bool {
+        return true
+    }
+    
+    var canThrowSpell: Bool {
+        return true
     }
     
 }
 
-class GameStunnedState: GKState {
+class GameNormalState: GameState {
     
-    var entity: GameEntity
+}
+
+class GameStunnedState: GameState {
     
-    init(entity: GameEntity) {
-        self.entity = entity
-    }
+    override var canWalk: Bool {return false}
+    override var canAttack: Bool {return false}
+    override var canThrowSpell: Bool {return false}
+    
+}
+
+class GameSilencedState: GameState {
+    
+    override var canThrowSpell: Bool {return false}
     
 }

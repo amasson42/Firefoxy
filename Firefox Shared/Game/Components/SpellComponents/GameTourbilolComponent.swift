@@ -22,9 +22,15 @@ class GameTourbilolComponent: GKComponent {
         return self.entity?.component(ofType: GameSceneComponent.self)?.positionNode
     }
     
+    var unit: GameUnitCoreComponent? {
+        return self.entity?.component(ofType: GameUnitCoreComponent.self)
+    }
+    
     func tourbilol() {
-        if self.currentCooldown <= 0.0 {
+        if self.currentCooldown <= 0.0
+            && self.unit?.state.canThrowSpell != false {
             self.currentCooldown = GameTourbilolComponent.cooldown
+            self.entity?.component(ofType: GameWalkerComponent.self)?.interruptWalk()
             let spiner = self.model?.animationPlayer(forKey: "spin")
             spiner?.play()
             

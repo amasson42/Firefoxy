@@ -8,13 +8,6 @@
 
 import GameplayKit
 
-struct GameCollisionCategory {
-    private init() {}
-    static let none: Int = 0
-    static let unit: Int = 1
-    static let spell: Int = 2
-}
-
 class GameEntity: GKEntity {
     
     weak var game: GameController?

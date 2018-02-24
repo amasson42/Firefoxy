@@ -202,9 +202,9 @@
 		8EF7C5B9204149DA005EA1C8 /* UnitComponents */ = {
 			isa = PBXGroup;
 			children = (
-				8E918C55203871F4003C1666 /* GameWalkerComponent.swift */,
-				8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */,
 				8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */,
+				8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */,
+				8E918C55203871F4003C1666 /* GameWalkerComponent.swift */,
 			);
 			path = UnitComponents;
 			sourceTree = "<group>";

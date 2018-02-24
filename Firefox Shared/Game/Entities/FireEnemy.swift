@@ -35,9 +35,9 @@ class FireEnemy: GameEntity {
             
             let bumpAction = SCNAction.group([moveAction, .sequence([jumpUpAction, jumpDownAction])])
             
-            self.unitComponent?.state.enter(GameStunnedState.self)
+            self.unitComponent?.stateMachine.enter(GameStunnedState.self)
             self.sceneComponent.positionNode.runAction(bumpAction, forKey: "bumped") {
-                self.unitComponent?.state.enter(GameNormalState.self)
+                self.unitComponent?.stateMachine.enter(GameNormalState.self)
             }
         }
     }
