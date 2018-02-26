@@ -12,8 +12,11 @@ import SceneKit
 class FireEnemy: GameEntity {
     
     init() {
-        super.init(modelName: "fireEnemy")!
-        self.sceneComponent.addPhysicalBody(radius: 0.3, category: GameCollisionCategory.unit, collision: GameCollisionCategory.spell, contactTest: GameCollisionCategory.spell)
+        super.init(modelName: "fireEnemy", loadingMode: .appleAsset)!
+        self.sceneComponent.addPhysicalBody(radius: 0.2,
+                                            category: GameCollisionCategory.unit,
+                                            collision: GameCollisionCategory.spell,
+                                            contactTest: GameCollisionCategory.spell)
         
         self.unitComponent = GameUnitCoreComponent()
         self.addComponent(self.unitComponent!)

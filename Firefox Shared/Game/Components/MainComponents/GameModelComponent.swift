@@ -15,17 +15,24 @@ class GameModelComponent: GKComponent {
     var model: SCNNode!
     var animationsNames: Set<String> = []
     
+    enum LoadingMode {
+        case appleAsset
+    }
+    
     init(withNode node: SCNNode) {
         self.name = node.name ?? "unamed"
         super.init()
         self.model = node
     }
     
-    init?(withName name: String) {
+    init?(withName name: String, loadingMode: LoadingMode) {
         self.name = name
         super.init()
-        if self.loadModel(withName: name) == false {
-            return nil
+        switch loadingMode {
+        case .appleAsset:
+            if self.loadModelAppleAsset(withName: name) == false {
+                return nil
+            }
         }
     }
     
@@ -33,34 +40,43 @@ class GameModelComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadModel(withName name: String) -> Bool {
+    func loadModelAppleAsset(withName name: String) -> Bool {
         guard let charScene = SCNScene(named: "Art.scnassets/\(name)/\(name).scn"),
             let charModel = charScene.rootNode.childNodes.first else {
                 return false
         }
+        charModel.name = "\(name)_model"
         self.model = charModel
         return true
     }
     
-    private class func loadAnimationPlayer(fromSceneNamed sceneName: String) -> SCNAnimationPlayer? {
-        guard let scene = SCNScene(named: sceneName) else {
-            return nil
+    @discardableResult
+    func loadAnimation(named animationName: String, loadingMode: LoadingMode) -> Bool {
+        switch loadingMode {
+        case .appleAsset:
+            return self.loadAnimationAppleAsset(named: animationName)
         }
-        var animationPlayer: SCNAnimationPlayer? = nil
-        scene.rootNode.enumerateChildNodes {
-            (child, stop) in
-            if !child.animationKeys.isEmpty {
-                animationPlayer = child.animationPlayer(forKey: child.animationKeys[0])
-                stop.pointee = true
-            }
-        }
-        return animationPlayer
     }
     
-    @discardableResult
-    func loadAnimation(named animationName: String) -> Bool {
+    func loadAnimationAppleAsset(named animationName: String) -> Bool {
+        
+        func loadAnimationPlayer(fromSceneNamed sceneName: String) -> SCNAnimationPlayer? {
+            guard let scene = SCNScene(named: sceneName) else {
+                return nil
+            }
+            var animationPlayer: SCNAnimationPlayer? = nil
+            scene.rootNode.enumerateChildNodes {
+                (child, stop) in
+                if !child.animationKeys.isEmpty {
+                    animationPlayer = child.animationPlayer(forKey: child.animationKeys[0])
+                    stop.pointee = true
+                }
+            }
+            return animationPlayer
+        }
+        
         guard !self.animationsNames.contains(animationName),
-            let player = GameModelComponent.loadAnimationPlayer(fromSceneNamed: "Art.scnassets/\(self.name)/\(self.name)_\(animationName).scn") else {
+            let player = loadAnimationPlayer(fromSceneNamed: "Art.scnassets/\(self.name)/\(self.name)_\(animationName).scn") else {
                 return false
         }
         self.model.addAnimationPlayer(player, forKey: animationName)

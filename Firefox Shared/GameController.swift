@@ -67,15 +67,15 @@ class GameController: NSObject, SCNSceneRendererDelegate {
     
     func add(entity: GameEntity) {
         self.activesCharacters.insert(entity)
+        self.scene.rootNode.addChildNode(entity.sceneComponent.positionNode)
         entity.game = self
     }
     
     func loadUnits() {
         let fox = Fox()
         self.foxChar = fox
-        scene.rootNode.addChildNode(fox.sceneComponent.positionNode)
-        fox.modelComponent.model.animationPlayer(forKey: "idle")?.play()
         self.add(entity: self.foxChar)
+        fox.modelComponent.model.animationPlayer(forKey: "idle")?.play()
         
         let enemy = FireEnemy()
         let wanderGoal = GKGoal(toWander: 3)
@@ -84,7 +84,6 @@ class GameController: NSObject, SCNSceneRendererDelegate {
         enemy.agentComponent.maxSpeed = 2
         enemy.agentComponent.maxAcceleration = 1000
         enemy.agentComponent.behavior = GKBehavior(goals: [wanderGoal, followGoal, speedGoal], andWeights: [0.5, 1, 0.2])
-        scene.rootNode.addChildNode(enemy.sceneComponent.positionNode)
         self.add(entity: enemy)
     }
     
@@ -98,8 +97,13 @@ class GameController: NSObject, SCNSceneRendererDelegate {
     }
     
     func buttonAction(key: UInt16) {
-        if key == 49 {
+        switch key {
+        case 12: // Q
+            self.foxChar.component(ofType: GameFireballComponent.self)?.fireball(to: SCNVector3(0, 0, 0))
+        case 13:
             self.foxChar.component(ofType: GameTourbilolComponent.self)?.tourbilol()
+        default:
+            break
         }
     }
     

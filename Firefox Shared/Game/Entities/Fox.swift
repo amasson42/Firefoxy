@@ -12,15 +12,15 @@ import SceneKit
 class Fox: GameEntity {
     
     // Game Actions
-    var walkComponent: GameWalkerComponent
-    var tourbilolComponent: GameTourbilolComponent
+    var walkComponent: GameWalkerComponent = GameWalkerComponent()
+    var tourbilolComponent: GameTourbilolComponent = GameTourbilolComponent()
+    var fireballComponent: GameFireballComponent = GameFireballComponent()
     
     init() {
-        self.walkComponent = GameWalkerComponent()
-        self.tourbilolComponent = GameTourbilolComponent()
-        super.init(modelName: "fox", modelAnimations: ["walk", "idle", "jump", "spin"])!
+        super.init(modelName: "fox", modelAnimations: ["walk", "idle", "jump", "spin"], loadingMode: .appleAsset)!
         self.addComponent(self.walkComponent)
         self.addComponent(self.tourbilolComponent)
+        self.addComponent(self.fireballComponent)
         
         self.unitComponent = GameUnitCoreComponent()
         self.addComponent(self.unitComponent!)

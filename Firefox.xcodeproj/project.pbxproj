@@ -36,6 +36,9 @@
 		8E918C612038F43D003C1666 /* FireEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E918C5F2038F43D003C1666 /* FireEnemy.swift */; };
 		8E918C632038F9CD003C1666 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E918C622038F9CD003C1666 /* Spell.swift */; };
 		8E918C642038F9CD003C1666 /* Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E918C622038F9CD003C1666 /* Spell.swift */; };
+		8EAA714C20433A0D00FF3A1E /* GameFireballComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA714B20433A0D00FF3A1E /* GameFireballComponent.swift */; };
+		8EAA714D20433A0D00FF3A1E /* GameFireballComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA714B20433A0D00FF3A1E /* GameFireballComponent.swift */; };
+		8EAA714F204429AD00FF3A1E /* GameEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA714E204429AD00FF3A1E /* GameEventsView.swift */; };
 		8EDB083E203A355200E56F6C /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB083D203A355200E56F6C /* GameEntity.swift */; };
 		8EDB083F203A355200E56F6C /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB083D203A355200E56F6C /* GameEntity.swift */; };
 		8EF7C5BB204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */; };
@@ -67,6 +70,8 @@
 		8E918C5C2038F420003C1666 /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
 		8E918C5F2038F43D003C1666 /* FireEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireEnemy.swift; sourceTree = "<group>"; };
 		8E918C622038F9CD003C1666 /* Spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spell.swift; sourceTree = "<group>"; };
+		8EAA714B20433A0D00FF3A1E /* GameFireballComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFireballComponent.swift; sourceTree = "<group>"; };
+		8EAA714E204429AD00FF3A1E /* GameEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEventsView.swift; sourceTree = "<group>"; };
 		8EDB083D203A355200E56F6C /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
 		8EF7C5BA204162DC005EA1C8 /* GameUnitCoreComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnitCoreComponent.swift; sourceTree = "<group>"; };
 		8EF7C5BD2041630D005EA1C8 /* UnitStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitStates.swift; sourceTree = "<group>"; };
@@ -137,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				8E43F6101F811AD000A498B8 /* AppDelegate.swift */,
+				8EAA714E204429AD00FF3A1E /* GameEventsView.swift */,
 				8E43F6121F811AD000A498B8 /* GameViewController.swift */,
 				8E43F6141F811AD000A498B8 /* Main.storyboard */,
 				8E43F6171F811AD000A498B8 /* Info.plist */,
@@ -186,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				8E918C582038CD9C003C1666 /* GameTourbilolComponent.swift */,
+				8EAA714B20433A0D00FF3A1E /* GameFireballComponent.swift */,
 			);
 			path = SpellComponents;
 			sourceTree = "<group>";
@@ -317,6 +324,7 @@
 				8E918C4D20386A9F003C1666 /* SCNVector.swift in Sources */,
 				8E918C53203871BE003C1666 /* GameSceneComponent.swift in Sources */,
 				8E918C592038CD9C003C1666 /* GameTourbilolComponent.swift in Sources */,
+				8EAA714C20433A0D00FF3A1E /* GameFireballComponent.swift in Sources */,
 				8EF7C5BE2041630D005EA1C8 /* UnitStates.swift in Sources */,
 				8E43F6021F811AD000A498B8 /* GameViewController.swift in Sources */,
 				8EF7C5BB204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */,
@@ -338,7 +346,9 @@
 				8E43F6131F811AD000A498B8 /* GameViewController.swift in Sources */,
 				8E918C54203871BE003C1666 /* GameSceneComponent.swift in Sources */,
 				8E918C5A2038CD9C003C1666 /* GameTourbilolComponent.swift in Sources */,
+				8EAA714D20433A0D00FF3A1E /* GameFireballComponent.swift in Sources */,
 				8EF7C5BF2041630D005EA1C8 /* UnitStates.swift in Sources */,
+				8EAA714F204429AD00FF3A1E /* GameEventsView.swift in Sources */,
 				8E43F6191F811AD000A498B8 /* GameController.swift in Sources */,
 				8EF7C5BC204162DC005EA1C8 /* GameUnitCoreComponent.swift in Sources */,
 				8E918C642038F9CD003C1666 /* Spell.swift in Sources */,

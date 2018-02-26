@@ -63,11 +63,19 @@ class GameSceneComponent: GKComponent, GKAgentDelegate {
         }
     }
     
-    func addPhysicalBody(radius: CGFloat, category: Int, collision: Int, contactTest: Int) {
-        self.positionNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: SCNPhysicsShape(geometry: SCNCylinder(radius: radius, height: 1.0), options: nil))
-        self.positionNode.physicsBody?.categoryBitMask = category
-        self.positionNode.physicsBody?.collisionBitMask = collision
-        self.positionNode.physicsBody?.contactTestBitMask = contactTest
+    @discardableResult
+    func addPhysicalBody(radius: CGFloat,
+                         type: SCNPhysicsBodyType = .kinematic,
+                         category: Int,
+                         collision: Int,
+                         contactTest: Int) -> SCNPhysicsBody {
+        let physicsBody = SCNPhysicsBody(type: type, shape: SCNPhysicsShape(geometry: SCNCylinder(radius: radius, height: 1.0), options: nil))
+        self.positionNode.physicsBody = physicsBody
+        physicsBody.categoryBitMask = category
+        physicsBody.collisionBitMask = collision
+        physicsBody.contactTestBitMask = contactTest
         self.positionNode.entity = self.entity
+        return physicsBody
     }
+    
 }

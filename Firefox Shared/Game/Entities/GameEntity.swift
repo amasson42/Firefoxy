@@ -18,11 +18,13 @@ class GameEntity: GKEntity {
     
     var unitComponent: GameUnitCoreComponent?
     
-    init?(modelName: String, modelAnimations: [String] = []) {
-        if let model = GameModelComponent(withName: modelName) {
+    init?(modelName: String,
+          modelAnimations: [String] = [],
+          loadingMode: GameModelComponent.LoadingMode) {
+        if let model = GameModelComponent(withName: modelName, loadingMode: loadingMode) {
             self.modelComponent = model
             for modelAnimation in modelAnimations {
-                model.loadAnimation(named: modelAnimation)
+                model.loadAnimation(named: modelAnimation, loadingMode: loadingMode)
             }
         } else {
             return nil
