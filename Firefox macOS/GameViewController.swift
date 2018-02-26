@@ -11,8 +11,8 @@ import SceneKit
 
 class GameViewController: NSViewController {
     
-    var gameView: SCNView {
-        return self.view as! SCNView
+    var gameView: GameEventsView {
+        return self.view as! GameEventsView
     }
     
     var gameController: GameController!
@@ -31,9 +31,7 @@ class GameViewController: NSViewController {
         // Configure the view
         self.gameView.backgroundColor = NSColor.black
         
-        let mouseGesture = NSClickGestureRecognizer(target: self, action: #selector(click(gesture:)))
-        mouseGesture.buttonMask = 2
-        gameView.addGestureRecognizer(mouseGesture)
+        self.gameView.eventDelegate = self
     }
     
     override func keyDown(with event: NSEvent) {
@@ -54,4 +52,41 @@ class GameViewController: NSViewController {
     @objc func click(gesture: NSClickGestureRecognizer) {
         gameController.touch(at: gesture.location(in: gameView))
     }
+}
+
+extension GameViewController: GameEventsViewDelegate {
+    
+    func handleMouseDown(at point: CGPoint, keyMouse: Int) {
+        print(#function, point, keyMouse)
+        switch keyMouse {
+        case 0: // left click
+            break
+        case 1: // right click
+            self.gameController.touch(at: point)
+        default:
+            break
+        }
+    }
+    
+    func handleMouseUp(at point: CGPoint, keyMouse: Int) {
+        print(#function, point, keyMouse)
+        
+    }
+    
+    func handleMouseMoved(to point: CGPoint) {
+        print(#function, point)
+        
+    }
+    
+    func handleKeyDown(keyCode: UInt16) {
+        print(#function, keyCode)
+        self.gameController.buttonAction(key: keyCode)
+        
+    }
+    
+    func handleKeyUp(keyCode: UInt16) {
+        print(#function, keyCode)
+        
+    }
+    
 }
