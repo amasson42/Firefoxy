@@ -17,6 +17,7 @@ class GameModelComponent: GKComponent {
     
     enum LoadingMode {
         case appleAsset
+        case spellAsset
     }
     
     init(withNode node: SCNNode) {
@@ -31,6 +32,10 @@ class GameModelComponent: GKComponent {
         switch loadingMode {
         case .appleAsset:
             if self.loadModelAppleAsset(withName: name) == false {
+                return nil
+            }
+        case .spellAsset:
+            if self.loadModelSpellAsset(withName: name) == false {
                 return nil
             }
         }
@@ -55,6 +60,8 @@ class GameModelComponent: GKComponent {
         switch loadingMode {
         case .appleAsset:
             return self.loadAnimationAppleAsset(named: animationName)
+        case .spellAsset:
+            return false
         }
     }
     
@@ -85,4 +92,16 @@ class GameModelComponent: GKComponent {
         player.stop()
         return true
     }
+    
+    func loadModelSpellAsset(withName name: String) -> Bool {
+        
+        guard let charScene = SCNScene(named: "Art.scnassets/spells/\(name).scn") else {
+            return false
+        }
+        let model = charScene.rootNode
+        model.name = "\(name)_model"
+        self.model = model
+        return true
+    }
+    
 }

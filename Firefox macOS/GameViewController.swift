@@ -23,7 +23,7 @@ class GameViewController: NSViewController {
         self.gameController = GameController(sceneRenderer: gameView)
         
         // Allow the user to manipulate the camera
-        self.gameView.allowsCameraControl = true
+        self.gameView.allowsCameraControl = false
         
         // Show statistics such as fps and timing information
         self.gameView.showsStatistics = true
@@ -34,24 +34,6 @@ class GameViewController: NSViewController {
         self.gameView.eventDelegate = self
     }
     
-    override func keyDown(with event: NSEvent) {
-        print(#function, event.keyCode)
-        switch event.keyCode {
-        default:
-            self.gameController.buttonAction(key: event.keyCode)
-        }
-    }
-    
-    override func keyUp(with event: NSEvent) {
-        switch event.keyCode {
-        default:
-            break
-        }
-    }
-    
-    @objc func click(gesture: NSClickGestureRecognizer) {
-        gameController.touch(at: gesture.location(in: gameView))
-    }
 }
 
 extension GameViewController: GameEventsViewDelegate {
@@ -62,7 +44,7 @@ extension GameViewController: GameEventsViewDelegate {
         case 0: // left click
             break
         case 1: // right click
-            self.gameController.touch(at: point)
+            self.gameController.eventTouch(at: point)
         default:
             break
         }
@@ -70,23 +52,22 @@ extension GameViewController: GameEventsViewDelegate {
     
     func handleMouseUp(at point: CGPoint, keyMouse: Int) {
         print(#function, point, keyMouse)
-        
     }
     
     func handleMouseMoved(to point: CGPoint) {
         print(#function, point)
-        
     }
     
     func handleKeyDown(keyCode: UInt16) {
         print(#function, keyCode)
-        self.gameController.buttonAction(key: keyCode)
-        
+        guard let position = self.gameView.mousePosition else {
+            return
+        }
+        self.gameController.eventButtonAction(key: keyCode, at: position)
     }
     
     func handleKeyUp(keyCode: UInt16) {
         print(#function, keyCode)
-        
     }
     
 }

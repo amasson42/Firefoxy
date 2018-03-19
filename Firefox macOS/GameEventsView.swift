@@ -100,13 +100,11 @@ class GameEventsView: SCNView {
     }
     
     override func keyDown(with event: NSEvent) {
-        super.keyDown(with: event)
         self.keysDown.insert(event.keyCode)
         self.eventDelegate?.handleKeyDown(keyCode: event.keyCode)
     }
     
     override func keyUp(with event: NSEvent) {
-        super.keyUp(with: event)
         self.keysDown.remove(event.keyCode)
         self.eventDelegate?.handleKeyUp(keyCode: event.keyCode)
     }

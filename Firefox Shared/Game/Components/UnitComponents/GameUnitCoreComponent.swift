@@ -10,6 +10,7 @@ import GameplayKit
 
 class GameUnitCoreComponent: GKComponent {
     
+    var team: Int = 0
     var stateMachine: GKStateMachine!
     var state: GameState {
         return self.stateMachine.currentGameState!

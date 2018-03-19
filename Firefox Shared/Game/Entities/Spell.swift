@@ -36,18 +36,13 @@ class TourbilolArea: SpellArea {
     
     init(castedBy caster: GameEntity?, forDuration duration: TimeInterval) {
         
-        let modelNode = SCNNode(geometry: SCNCylinder(radius: 0.65, height: 0.5))
-        modelNode.position.y = 0.25
-        modelNode.opacity = 0.3
-        modelNode.geometry?.materials.first?.diffuse.contents = UIColor.red
-        
-        super.init(model: modelNode)
-        
-        self.sceneComponent.positionNode.name = "spell_tourbilol"
+        super.init(name: "tourbilolArea", modelName: "TourbilolTornado", loadingMode: .spellAsset)!
         
         self.caster = caster
         
         self.sceneComponent.addPhysicalBody(radius: 0.65,
+                                            elevation: 0.0,
+                                            height: 0.5,
                                             category: GameCollisionCategory.spell,
                                             collision: GameCollisionCategory.unit,
                                             contactTest: GameCollisionCategory.unit)
@@ -61,7 +56,7 @@ class TourbilolArea: SpellArea {
     
     override func applyTo(entity: GameEntity) {
         if let caster = self.caster,
-            caster !== entity {
+            caster.unitComponent?.team != entity.unitComponent?.team {
             entity.getBumpedFrom(entity: caster)
         }
     }
@@ -75,23 +70,23 @@ class FireballProjectile: SpellArea {
         modelNode.position.y = 0.25
         modelNode.geometry?.materials.first?.diffuse.contents = UIColor.red
         
-        super.init(model: modelNode)
-        
-        self.sceneComponent.positionNode.name = "spell_fireball"
+        super.init(name: "fireballArea", model: modelNode)
         
         self.caster = caster
         
         let physicsBody = self.sceneComponent.addPhysicalBody(radius: 0.1,
-                                                             type: .dynamic,
-                                                             category: GameCollisionCategory.spell,
-                                                             collision: GameCollisionCategory.unit,
-                                                             contactTest: GameCollisionCategory.unit)
+                                                              elevation: 0.15,
+                                                              height: 0.5,
+                                                              type: .dynamic,
+                                                              category: GameCollisionCategory.spell,
+                                                              collision: GameCollisionCategory.unit,
+                                                              contactTest: GameCollisionCategory.unit)
         
         if let caster = self.caster {
             self.sceneComponent.positionNode.position = caster.sceneComponent.positionNode.position
             caster.game?.add(entity: self)
             physicsBody.isAffectedByGravity = false
-            physicsBody.applyForce(direction, asImpulse: false)
+            physicsBody.velocity = direction
         }
     }
     
@@ -101,7 +96,8 @@ class FireballProjectile: SpellArea {
     
     override func applyTo(entity: GameEntity) {
         if let caster = self.caster,
-            caster !== entity {
+            caster.unitComponent?.team != entity.unitComponent?.team {
+            self.caster?.component(ofType: GameFireballComponent.self)?.currentCooldown = 0.0
             entity.getBumpedFrom(entity: self)
             self.sceneComponent.positionNode.removeFromParentNode()
         }

@@ -41,7 +41,7 @@ class GameFireballComponent: GKComponent {
     func fireball(to direction: SCNVector3) {
         if self.currentCooldown <= 0.0
             && self.unit?.state.canThrowSpell != false {
-            self.currentCooldown = GameTourbilolComponent.cooldown
+            self.currentCooldown = GameFireballComponent.cooldown
             
             let jumper = self.model?.animationPlayer(forKey: "spin")
             jumper?.play()
@@ -54,7 +54,7 @@ class GameFireballComponent: GKComponent {
                 .wait(duration: 15.0),
                 .run {
                     _ in
-                    
+                    fireballProjectile.game?.remove(entity: fireballProjectile)
                 }
                 ]))
         }

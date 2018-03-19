@@ -19,9 +19,14 @@ class GameWalkerComponent: GKComponent {
     var model: SCNNode? {
         return self.entity?.component(ofType: GameModelComponent.self)?.model
     }
+    var unit: GameUnitCoreComponent? {
+        return (self.entity as? GameEntity)?.unitComponent
+    }
     
     func orderWalk(to point: SCNVector3) {
-        guard let positionNode = self.positionNode else {
+        
+        guard self.unit?.state.canWalk == true,
+            let positionNode = self.positionNode else {
             return
         }
         let distance = positionNode.position.distanceTo(point: point)

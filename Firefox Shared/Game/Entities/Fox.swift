@@ -15,12 +15,24 @@ class Fox: GameEntity {
     var walkComponent: GameWalkerComponent = GameWalkerComponent()
     var tourbilolComponent: GameTourbilolComponent = GameTourbilolComponent()
     var fireballComponent: GameFireballComponent = GameFireballComponent()
+    var jumpComponent: GameJumpComponent = GameJumpComponent()
     
     init() {
-        super.init(modelName: "fox", modelAnimations: ["walk", "idle", "jump", "spin"], loadingMode: .appleAsset)!
+        super.init(name: "fox",
+                   modelName: "fox",
+                   modelAnimations: ["walk", "idle", "jump", "spin"],
+                   loadingMode: .appleAsset)!
+        self.sceneComponent.addPhysicalBody(radius: 0.2,
+                                            elevation: 0.0,
+                                            height: 0.5,
+                                            category: GameCollisionCategory.unit,
+                                            collision: GameCollisionCategory.spell,
+                                            contactTest: GameCollisionCategory.spell)
+        self.modelComponent.model.animationPlayer(forKey: "idle")?.play()
         self.addComponent(self.walkComponent)
         self.addComponent(self.tourbilolComponent)
         self.addComponent(self.fireballComponent)
+        self.addComponent(self.jumpComponent)
         
         self.unitComponent = GameUnitCoreComponent()
         self.addComponent(self.unitComponent!)

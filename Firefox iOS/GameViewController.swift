@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func handleTouch(_ gesture: UIGestureRecognizer) {
-        gameController.touch(at: gesture.location(in: gameView))
+        gameController.eventTouch(at: gesture.location(in: gameView))
     }
     
     override var shouldAutorotate: Bool {

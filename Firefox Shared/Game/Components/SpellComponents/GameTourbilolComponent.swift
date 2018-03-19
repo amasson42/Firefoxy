@@ -11,8 +11,11 @@ import SceneKit
 
 class GameTourbilolComponent: GKComponent {
     
+    static let range: Float = 0.5
     static let cooldown: TimeInterval = 2.0
     var currentCooldown: TimeInterval = 0.0
+    
+    var gameEntity: GameEntity?
     
     var model: SCNNode? {
         return self.entity?.component(ofType: GameModelComponent.self)?.model
@@ -24,6 +27,16 @@ class GameTourbilolComponent: GKComponent {
     
     var unit: GameUnitCoreComponent? {
         return self.entity?.component(ofType: GameUnitCoreComponent.self)
+    }
+    
+    override func didAddToEntity() {
+        super.didAddToEntity()
+        self.gameEntity = self.entity as? GameEntity
+    }
+    
+    override func willRemoveFromEntity() {
+        super.willRemoveFromEntity()
+        self.gameEntity = nil
     }
     
     func tourbilol() {
@@ -38,10 +51,16 @@ class GameTourbilolComponent: GKComponent {
                 let duration = spiner?.animation.duration ?? 1.0
                 let tourbilolArea = TourbilolArea(castedBy: self.entity as? GameEntity, forDuration: duration)
                 
-                (self.entity as? GameEntity)?.game?.add(entity: tourbilolArea)
+                self.gameEntity?.game?.add(entity: tourbilolArea)
                 positionNode.addChildNode(tourbilolArea.sceneComponent.positionNode)
                 
-                tourbilolArea.sceneComponent.positionNode.runAction(.sequence([.wait(duration: spiner?.animation.duration ?? 1.0), .removeFromParentNode()]))
+                tourbilolArea.sceneComponent.positionNode.runAction(.sequence([
+                    .wait(duration: spiner?.animation.duration ?? 1.0),
+                    .run {
+                        _ in
+                        self.gameEntity?.game?.remove(entity: tourbilolArea)
+                    }
+                    ]))
             }
         }
     }

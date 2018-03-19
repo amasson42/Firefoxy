@@ -16,7 +16,12 @@ extension GKStateMachine {
     }
     
     convenience init(gameEntity: GameEntity) {
-        self.init(states: [GameNormalState(entity: gameEntity), GameStunnedState(entity: gameEntity)])
+        self.init(states: [
+            GameNormalState(entity: gameEntity),
+            GameStunnedState(entity: gameEntity),
+            GameSilencedState(entity: gameEntity),
+            GameRootedState(entity: gameEntity)
+            ])
         self.enter(GameNormalState.self)
     }
     
@@ -28,6 +33,14 @@ class GameState: GKState {
     
     init(entity: GameEntity) {
         self.entity = entity
+    }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        if stateClass is GameState.Type {
+            return true
+        } else {
+            return true
+        }
     }
     
     var canWalk: Bool {
@@ -59,5 +72,11 @@ class GameStunnedState: GameState {
 class GameSilencedState: GameState {
     
     override var canThrowSpell: Bool {return false}
+    
+}
+
+class GameRootedState: GameState {
+    
+    override var canWalk: Bool {return false}
     
 }

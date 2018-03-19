@@ -35,15 +35,18 @@ class GameSceneComponent: GKComponent, GKAgentDelegate {
         super.init()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didAddToEntity() {
         if let model = self.modelComponent {
             self.positionNode.addChildNode(model.model)
         }
         self.agentComponent?.delegate = self
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        if let name = self.gameEntity?.name {
+            self.positionNode.name = "\(name)_positionNode"
+        }
     }
     
     func agentWillUpdate(_ agent: GKAgent) {
@@ -65,11 +68,16 @@ class GameSceneComponent: GKComponent, GKAgentDelegate {
     
     @discardableResult
     func addPhysicalBody(radius: CGFloat,
+                         elevation: CGFloat,
+                         height: CGFloat,
                          type: SCNPhysicsBodyType = .kinematic,
                          category: Int,
                          collision: Int,
                          contactTest: Int) -> SCNPhysicsBody {
-        let physicsBody = SCNPhysicsBody(type: type, shape: SCNPhysicsShape(geometry: SCNCylinder(radius: radius, height: 1.0), options: nil))
+        let physicsBody = SCNPhysicsBody(type: type,
+                                         shape: SCNPhysicsShape(geometry: SCNCylinder(radius: radius,
+                                                                                      height: height),
+                                                                options: nil))
         self.positionNode.physicsBody = physicsBody
         physicsBody.categoryBitMask = category
         physicsBody.collisionBitMask = collision
